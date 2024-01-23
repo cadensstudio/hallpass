@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth();
+import { auth } from '../utils/firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
+	console.log(auth)
 	const [ email, setEmail ] = useState<string>('');
 	const [ password, setPassword ] = useState<string>('');
 
@@ -20,18 +20,17 @@ const Signup = () => {
     // Add your authentication logic here
     console.log('Email:', email);
     console.log('Password:', password);
-    // You can add your authentication logic and API calls here
-		createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed up 
 				const user = userCredential.user;
+				console.log('user signed in:', user)
 				// ...
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(errorCode);
-				console.log(errorMessage);
+				console.log('error')
 				// ..
 			});
   };
